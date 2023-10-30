@@ -1,4 +1,31 @@
 
+
+function render(pokemons) {
+    document.getElementById('poke').setAttribute('src', pokemons.sprites.front_default)
+    console.log(pokemons)
+}
+
+async function getPokemon(id) {
+    try {
+        const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}/`)
+        const data = await res.json()
+        return data
+    } catch(err){
+        console.error(err)
+    }
+}
+
+async function sun (){
+    sol = await getPokemon(791)
+    render(sol)
+}
+
+async function moon (){
+    luna =  await getPokemon(792)
+    render(luna)
+}
+
+
 let button = document.getElementById('button');
 let navbar = document.querySelector('.navbar')
 
@@ -9,12 +36,12 @@ if(darkMode == true){
     document.body.classList.add('darkMode')
     navbar.setAttribute(`data-bs-theme`, `dark`)
     localStorage.setItem('darkMode', true)
-    button.innerHTML='<i class="fa-regular fa-sun sunColor"></i>'
+    sun()
 }else if(darkMode == false){
     document.body.classList.remove('darkMode')
     navbar.removeAttribute("data-bs-theme")
     localStorage.setItem('darkMode', false)
-    button.innerHTML='<i class="fa-regular fa-moon"></i>'
+    moon()
 }
 
 button.addEventListener('click', (evt) =>{
@@ -23,11 +50,11 @@ button.addEventListener('click', (evt) =>{
     if(document.body.classList.contains('darkMode') == true){
         localStorage.setItem('darkMode', true)
         navbar.setAttribute(`data-bs-theme`, `dark`)
-        button.innerHTML='<i class="fa-regular fa-sun sunColor"></i>'
+        sun()
     }
     else{
         localStorage.setItem('darkMode', false)
         navbar.removeAttribute("data-bs-theme")
-        button.innerHTML='<i class="fa-regular fa-moon"></i>'
+        moon()
     }
 })
