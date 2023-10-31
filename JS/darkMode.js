@@ -2,7 +2,6 @@
 
 function render(pokemons) {
     document.getElementById('poke').setAttribute('src', pokemons.sprites.front_default)
-    console.log(pokemons)
 }
 
 async function getPokemon(id) {
